@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, BackgroundTasks, Request, Form
 from fastapi.middleware.cors import CORSMiddleware 
 from typing import Optional, Annotated
@@ -7,7 +8,9 @@ from starlette import status
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.responses import JSONResponse
 from datetime import datetime
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class NotificationRequest(BaseModel):
     url: str
@@ -31,7 +34,7 @@ class NotificationRequest(BaseModel):
 
 app = FastAPI()
 
-origins = ["http://0.0.0.0:8080","http://localhost:8080"]
+origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
 
 app.add_middleware(
     CORSMiddleware,
