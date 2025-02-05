@@ -69,7 +69,7 @@ async def send_notifiation(request: NotificationRequest):
     try:
         async with AsyncClient(timeout=30.0) as client: 
             response = await client.post(url, headers = headers, data = data )
-            print(f"[{datetime.now()}] RESPONSE => #{response.json()}")
+            print(f"[{datetime.now()}] RESPONSE => #{response}")
     except TimeoutException:
         print(f"[{datetime.now()}] RESPONSE TO {url} TIMED OUT.")
     except RequestError as e:
